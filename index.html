@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Guia visual e interativo de jiu-jitsu para faixa branca.">
+<style>[hidden]{display:none!important}img{max-width:100%}</style>
+<title>Manual da Faixa Branca</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: coluna única de leitura (~760px) com trilho de navegação fixo; seções como "áreas do tatame" */
+:root{
+  --bg:#F3F5F4;          /* algodão do kimono */
+  --surface:#FFFFFF;
+  --surface-2:#E7ECEB;
+  --ink:#15191E;
+  --muted:#5A6570;
+  --line:#D3DBDA;
+  --mat:#1D5CA3;         /* azul de tatame */
+  --mat-soft:#DCE7F4;
+  --belt:#FBFBF8;        /* faixa branca */
+  --tarja:#15191E;       /* tarja preta da faixa */
+  --good:#1F7A4D; --good-soft:#DDF0E5;
+  --warn:#A8620B; --warn-soft:#F7EAD5;
+  --bad:#B3261E;  --bad-soft:#F6DEDB;
+  --f-display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --f-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#101418; --surface:#181D23; --surface-2:#212830; --ink:#E9EEF1; --muted:#9AA7B2; --line:#2C343D;
+    --mat:#7DB0EE; --mat-soft:#1C2C40; --belt:#ECEDE8; --tarja:#0B0D10;
+    --good:#6BCB97; --good-soft:#16301F; --warn:#E6A954; --warn-soft:#33260F; --bad:#F08A80; --bad-soft:#3A1A17;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#101418; --surface:#181D23; --surface-2:#212830; --ink:#E9EEF1; --muted:#9AA7B2; --line:#2C343D;
+  --mat:#7DB0EE; --mat-soft:#1C2C40; --belt:#ECEDE8; --tarja:#0B0D10;
+  --good:#6BCB97; --good-soft:#16301F; --warn:#E6A954; --warn-soft:#33260F; --bad:#F08A80; --bad-soft:#3A1A17;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;margin:0}
+.wrap{max-width:800px;margin:0 auto;padding-inline:16px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.02;margin:0;letter-spacing:.01em}
+h2{font-size:clamp(2rem,6vw,2.8rem);font-weight:900;text-transform:uppercase}
+h3{font-size:1.45rem;font-weight:800}
+p{margin:0}
+.eyebrow{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mat);font-weight:700}
+.lead{color:var(--muted);max-width:62ch}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--mat);outline-offset:2px;border-radius:6px}
+
+/* NAV */
+nav.rail{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav.rail .inner{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-block:8px}
+nav.rail .inner::-webkit-scrollbar{display:none}
+nav.rail a{flex:none;text-decoration:none;color:var(--muted);font-weight:600;font-size:.88rem;padding:6px 12px;border-radius:999px;white-space:nowrap}
+nav.rail a:hover{color:var(--ink);background:var(--surface-2)}
+nav.rail a.on{color:var(--bg);background:var(--ink)}
+
+/* HERO */
+header.hero{padding-block:48px 36px;display:grid;gap:22px}
+header.hero h1{font-size:clamp(3.2rem,13vw,6.4rem);font-weight:900;text-transform:uppercase;line-height:.88}
+header.hero h1 span{color:var(--mat)}
+.belt-card{display:grid;gap:10px}
+.belt{position:relative;height:54px;border-radius:6px;background:
+  repeating-linear-gradient(0deg,transparent 0 6px,color-mix(in srgb,var(--ink) 5%,transparent) 6px 7px),var(--belt);
+  border:1px solid var(--line);box-shadow:0 2px 0 var(--line);display:flex;justify-content:flex-end}
+.tarja{width:34%;min-width:130px;height:100%;background:var(--tarja);display:flex;align-items:center;justify-content:space-evenly;padding-inline:10px;margin-right:9%}
+.grau{width:10px;height:100%;background:transparent;border-inline:1px dashed #ffffff33;transition:background .5s}
+.grau.on{background:#F4F4F0;border-color:transparent}
+.belt-meta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.86rem;color:var(--muted)}
+.belt-meta b{font-family:var(--f-mono);color:var(--ink)}
+
+section{padding-block:56px 8px;scroll-margin-top:56px}
+.sec-head{display:grid;gap:10px;margin-bottom:26px}
+
+/* REGRAS */
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.rule{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:grid;gap:6px;align-content:start}
+.rule .ic{width:36px;height:36px;border-radius:8px;display:grid;place-items:center;background:var(--mat-soft);color:var(--mat)}
+.rule h3{font-size:1.2rem}
+.rule p{font-size:.93rem;color:var(--muted)}
+.rule.key{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.rule.key p{color:color-mix(in srgb,var(--bg) 78%,var(--ink))}
+.rule.key .ic{background:color-mix(in srgb,var(--bg) 16%,var(--ink));color:var(--bg)}
+
+/* POSIÇÕES */
+.ladder{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+@media(min-width:720px){.ladder{grid-template-columns:300px minmax(0,1fr)}}
+.rungs{display:grid;gap:6px;align-content:start}
+.zone{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;padding:10px 4px 2px}
+.zone.z-top{color:var(--good)} .zone.z-mid{color:var(--muted)} .zone.z-low{color:var(--bad)}
+.rung{display:flex;align-items:center;gap:10px;text-align:left;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;border-left-width:5px}
+.rung[data-z="top"]{border-left-color:var(--good)}
+.rung[data-z="mid"]{border-left-color:var(--muted)}
+.rung[data-z="low"]{border-left-color:var(--bad)}
+.rung .nm{flex:1;font-weight:600;font-size:.95rem}
+.rung .pts{font-family:var(--f-mono);font-size:.75rem;font-weight:700;padding:2px 7px;border-radius:5px;background:var(--surface-2);color:var(--muted)}
+.rung.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.rung.on .pts{background:color-mix(in srgb,var(--bg) 18%,var(--ink));color:var(--bg)}
+.pos-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px;display:grid;gap:16px;align-content:start;min-width:0}
+@media(min-width:720px){.pos-card{position:sticky;top:70px}}
+.pos-card .tag{justify-self:start;font-family:var(--f-mono);font-size:.72rem;font-weight:700;padding:3px 9px;border-radius:999px}
+.tag.top{background:var(--good-soft);color:var(--good)} .tag.mid{background:var(--surface-2);color:var(--muted)} .tag.low{background:var(--bad-soft);color:var(--bad)}
+.pos-card h3{font-size:2rem}
+.kv{display:grid;gap:12px}
+.kv div{display:grid;gap:2px}
+.kv dt,.lbl{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.kv dd{margin:0}
+.err{background:var(--bad-soft);color:var(--ink);border-radius:8px;padding:10px 12px;font-size:.93rem}
+.err b{color:var(--bad)}
+.points{margin-top:18px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:12px}
+.bars{display:grid;gap:8px}
+.bar{display:grid;grid-template-columns:150px minmax(0,1fr) 28px;align-items:center;gap:10px;font-size:.9rem}
+.bar .track{height:14px;background:var(--surface-2);border-radius:4px;overflow:hidden}
+.bar .fill{height:100%;background:var(--mat);border-radius:4px}
+.bar b{font-family:var(--f-mono);text-align:right;font-variant-numeric:tabular-nums}
+@media(max-width:460px){.bar{grid-template-columns:112px minmax(0,1fr) 22px;font-size:.82rem}}
+
+/* TÉCNICAS */
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:16px;scrollbar-width:thin}
+.tab{flex:none;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-weight:600;font-size:.9rem}
+.tab.on{background:var(--mat);border-color:var(--mat);color:#fff}
+:root[data-theme="dark"] .tab.on{color:#0C1623}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tab.on{color:#0C1623}}
+.tab .ct{font-family:var(--f-mono);font-size:.75rem;opacity:.75;margin-left:4px}
+.tech-list{display:grid;gap:10px}
+details.tech{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+details.tech[open]{border-color:color-mix(in srgb,var(--mat) 45%,var(--line))}
+details.tech summary{list-style:none;display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer}
+details.tech summary::-webkit-details-marker{display:none}
+.chk{flex:none;width:26px;height:26px;border-radius:7px;border:2px solid var(--line);display:grid;place-items:center;background:var(--bg)}
+.chk svg{opacity:0}
+.tech.done .chk{background:var(--good);border-color:var(--good)}
+.tech.done .chk svg{opacity:1}
+.t-title{flex:1;min-width:0;display:grid}
+.t-title b{font-size:1.02rem}
+.t-title small{color:var(--muted);font-size:.85rem}
+.lvl{font-family:var(--f-mono);font-size:.68rem;font-weight:700;padding:2px 7px;border-radius:5px;background:var(--mat-soft);color:var(--mat);white-space:nowrap}
+.caret{transition:transform .2s;color:var(--muted)}
+details[open] .caret{transform:rotate(180deg)}
+.t-body{padding:4px 16px 18px 54px;display:grid;gap:14px}
+@media(max-width:520px){.t-body{padding-left:16px}}
+ol.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:8px}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:start}
+ol.steps li::before{content:counter(s);font-family:var(--f-mono);font-weight:700;font-size:.8rem;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--surface-2);color:var(--ink)}
+.tip{background:var(--good-soft);border-radius:8px;padding:10px 12px;font-size:.93rem}
+.tip b{color:var(--good)}
+.mark-btn{justify-self:start;border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:7px 12px;font-weight:600;font-size:.88rem}
+.tech.done .mark-btn{background:var(--good-soft);border-color:var(--good);color:var(--good)}
+
+/* FLEXIBILIDADE */
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.routine{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:12px;align-content:start;min-width:0}
+.routine header{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.routine .dur{font-family:var(--f-mono);font-weight:700;color:var(--mat);font-size:.88rem}
+.ex{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;padding:9px 0;border-top:1px solid var(--line)}
+.ex b{font-weight:600;font-size:.95rem}
+.ex span{font-family:var(--f-mono);font-size:.8rem;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+.ex small{grid-column:1/-1;color:var(--muted);font-size:.85rem;line-height:1.45}
+.ex.now{background:var(--mat-soft);margin-inline:-10px;padding-inline:10px;border-radius:6px;border-top-color:transparent}
+.play{border:0;background:var(--ink);color:var(--bg);border-radius:8px;padding:10px 14px;font-weight:700;display:flex;align-items:center;gap:8px;justify-content:center}
+.timer{display:grid;gap:6px;background:var(--ink);color:var(--bg);border-radius:10px;padding:14px}
+.timer .clock{font-family:var(--f-mono);font-size:2.4rem;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.timer .row{display:flex;gap:8px;flex-wrap:wrap}
+.timer button{border:1px solid color-mix(in srgb,var(--bg) 30%,var(--ink));background:transparent;color:var(--bg);border-radius:7px;padding:6px 11px;font-size:.85rem;font-weight:600}
+.prog{height:6px;background:color-mix(in srgb,var(--bg) 20%,var(--ink));border-radius:3px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--mat);transition:width .3s linear}
+
+.week{margin-top:18px;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.day{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 6px;display:grid;gap:6px;justify-items:center;text-align:center;min-height:104px;align-content:start}
+.day .d{font-family:var(--f-mono);font-size:.72rem;font-weight:700;color:var(--muted)}
+.day .blk{font-size:.76rem;line-height:1.25;font-weight:600;padding:4px 5px;border-radius:5px;width:100%}
+.blk.t{background:var(--mat);color:#fff}
+.blk.m{background:var(--good-soft);color:var(--good)}
+.blk.f{background:var(--warn-soft);color:var(--warn)}
+.blk.r{background:var(--surface-2);color:var(--muted)}
+:root[data-theme="dark"] .blk.t{color:#0C1623}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .blk.t{color:#0C1623}}
+@media(max-width:560px){.week{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.84rem;color:var(--muted);margin-top:10px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+
+/* EVOLUIR */
+.road{position:relative;display:grid;gap:14px;padding-left:28px}
+.road::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:3px;background:var(--line);border-radius:2px}
+.stage{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:8px}
+.stage::before{content:"";position:absolute;left:-26px;top:18px;width:15px;height:15px;border-radius:50%;background:var(--bg);border:3px solid var(--mat)}
+.stage .when{font-family:var(--f-mono);font-size:.75rem;font-weight:700;color:var(--mat)}
+.stage ul{margin:0;padding-left:18px;display:grid;gap:3px;font-size:.94rem}
+.stage .goal{font-size:.9rem;color:var(--muted)}
+.stage .goal b{color:var(--ink)}
+
+.habits{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-top:22px}
+.habit{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;padding:14px 0;border-top:2px solid var(--ink)}
+.habit .n{font-family:var(--f-display);font-weight:900;font-size:2.2rem;line-height:.9;color:var(--mat)}
+.habit b{font-size:1rem}
+.habit p{grid-column:2;font-size:.9rem;color:var(--muted)}
+
+.focus{margin-top:22px;background:var(--mat);color:#fff;border-radius:12px;padding:20px;display:grid;gap:14px}
+:root[data-theme="dark"] .focus{color:#0C1623}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .focus{color:#0C1623}}
+.focus h3{font-size:1.7rem}
+.focus-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.focus label{display:grid;gap:4px;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.focus select{font:inherit;font-size:.95rem;text-transform:none;letter-spacing:0;font-weight:500;padding:9px 10px;border-radius:8px;border:0;background:var(--surface);color:var(--ink);width:100%}
+.focus p{font-size:.9rem;opacity:.9}
+
+/* GLOSSÁRIO */
+.gloss{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0 22px}
+.gloss div{padding:12px 0;border-top:1px solid var(--line);display:grid;gap:2px}
+.gloss b{font-family:var(--f-display);font-size:1.25rem;font-weight:800;letter-spacing:.02em}
+.gloss span{color:var(--muted);font-size:.9rem}
+
+footer{padding-block:48px 56px;color:var(--muted);font-size:.85rem}
+footer p{max-width:62ch}
+</style>
+
+</head>
+<body>
+<nav class="rail" aria-label="Seções">
+  <div class="wrap inner" id="railInner">
+    <a href="#regras">Regras</a>
+    <a href="#posicoes">Posições</a>
+    <a href="#tecnicas">Técnicas</a>
+    <a href="#flexibilidade">Flexibilidade</a>
+    <a href="#evoluir">Evoluir rápido</a>
+    <a href="#glossario">Glossário</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Jiu-jitsu · primeiro ano no tatame</p>
+    <h1>Manual da<br><span>faixa branca</span></h1>
+    <p class="lead">Tudo o que você precisa nos primeiros meses: como se comportar no tatame, onde você está em cada posição, as técnicas que vêm primeiro, uma rotina de flexibilidade com cronômetro e um plano para evoluir sem se machucar.</p>
+    <div class="belt-card">
+      <div class="belt" role="img" aria-label="Faixa branca com tarja preta e quatro espaços para graus">
+        <div class="tarja"><i class="grau"></i><i class="grau"></i><i class="grau"></i><i class="grau"></i></div>
+      </div>
+      <div class="belt-meta">
+        <span>Técnicas marcadas como treinadas: <b id="doneCount">0</b> de <b id="totalCount">0</b></span>
+        <span>Cada 25% acende uma listra na sua faixa do guia</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- REGRAS -->
+  <section id="regras">
+    <div class="sec-head">
+      <p class="eyebrow">Antes de tudo</p>
+      <h2>Regras de ouro</h2>
+      <p class="lead">Aos 32 anos, o que mais atrasa a evolução é lesão. Essas regras protegem você e fazem os parceiros quererem treinar com você.</p>
+    </div>
+    <div class="rules">
+      <div class="rule key">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-4 0v5M14 10V4a2 2 0 0 0-4 0v6M10 10.5V6a2 2 0 0 0-4 0v8a8 8 0 0 0 16 0v-2a2 2 0 0 0-4 0"/></svg></div>
+        <h3>Bata cedo, bata sempre</h3>
+        <p>Bata duas vezes no parceiro ou no chão, ou diga "bati". Não espere doer. Na chave de braço e na chave de pé, a lesão vem antes da dor.</p>
+      </div>
+      <div class="rule">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg></div>
+        <h3>Deixe o ego fora</h3>
+        <p>Você vai ser finalizado muitas vezes. Isso é o treino funcionando. Quem treina para "ganhar" o rola aprende menos.</p>
+      </div>
+      <div class="rule">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 12h16M12 4v16"/></svg></div>
+        <h3>Higiene não é opcional</h3>
+        <p>Unhas das mãos e dos pés cortadas. Kimono lavado a cada treino. Chinelo até a beira do tatame. Machucado aberto fica coberto. Evita micose e infecção de pele.</p>
+      </div>
+      <div class="rule">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 3v9l5 3"/><circle cx="12" cy="12" r="9"/></svg></div>
+        <h3>Técnica acima da força</h3>
+        <p>Rola a 60% de força. Explosão e força bruta cansam em dois minutos, machucam o parceiro e escondem os erros técnicos.</p>
+      </div>
+      <div class="rule">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></div>
+        <h3>Respire</h3>
+        <p>Iniciante prende o ar embaixo da pressão. Solte o ar pela boca de forma controlada. Metade do cansaço do começo é respiração ruim.</p>
+      </div>
+      <div class="rule">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M7 11V7a5 5 0 0 1 10 0v4"/><rect x="5" y="11" width="14" height="10" rx="2"/></svg></div>
+        <h3>Escolha bem os parceiros</h3>
+        <p>Nos primeiros meses, prefira rolar com faixas graduadas e calmos. Avise que é iniciante. Com outro iniciante forte e afobado, o risco de lesão é maior.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- POSIÇÕES -->
+  <section id="posicoes">
+    <div class="sec-head">
+      <p class="eyebrow">O mapa do jogo</p>
+      <h2>Hierarquia das posições</h2>
+      <p class="lead">Em qualquer momento do rola, você está em uma destas posições. Saber qual é já diz o que fazer: embaixo, sobreviver e sair; no meio, melhorar; em cima, controlar e finalizar. Toque em uma posição.</p>
+    </div>
+    <div class="ladder">
+      <div class="rungs" id="rungs" role="listbox" aria-label="Posições"></div>
+      <div class="pos-card" id="posCard" aria-live="polite"></div>
+    </div>
+    <div class="points">
+      <div>
+        <p class="lbl">Pontuação oficial IBJJF</p>
+        <p class="lead" style="font-size:.93rem">A pontuação de competição mostra o quanto cada conquista vale. Posição mantida por 3 segundos.</p>
+      </div>
+      <div class="bars" id="bars"></div>
+    </div>
+  </section>
+
+  <!-- TÉCNICAS -->
+  <section id="tecnicas">
+    <div class="sec-head">
+      <p class="eyebrow">Currículo inicial</p>
+      <h2>Técnicas para aprender primeiro</h2>
+      <p class="lead">Ordem recomendada: movimentos base, depois fugas, depois guarda e finalizações. Defesa vem antes de ataque. Abra uma técnica para ver o passo a passo e marque quando já tiver treinado. As marcações ficam salvas neste navegador.</p>
+    </div>
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <div class="tech-list" id="techList"></div>
+  </section>
+
+  <!-- FLEXIBILIDADE -->
+  <section id="flexibilidade">
+    <div class="sec-head">
+      <p class="eyebrow">Mobilidade para o tatame</p>
+      <h2>Flexibilidade que ajuda no rola</h2>
+      <p class="lead">No jiu-jitsu, a flexibilidade que importa é a do quadril, posterior de coxa, lombar e pescoço. Faça pouco e sempre: 10 a 15 minutos, 4 a 5 vezes por semana, rendem mais que uma sessão longa de vez em quando. Nunca force até a dor.</p>
+    </div>
+    <div class="split" id="routines"></div>
+
+    <h3 style="margin-top:30px">Semana modelo</h3>
+    <p class="lead" style="font-size:.93rem;margin-top:6px">Três treinos por semana é um ótimo começo. Força de pescoço, core e pegada reduz lesões.</p>
+    <div class="week" id="week"></div>
+    <div class="legend">
+      <span><i style="background:var(--mat)"></i>Treino</span>
+      <span><i style="background:var(--good)"></i>Mobilidade</span>
+      <span><i style="background:var(--warn)"></i>Força</span>
+      <span><i style="background:var(--muted)"></i>Descanso</span>
+    </div>
+  </section>
+
+  <!-- EVOLUIR -->
+  <section id="evoluir">
+    <div class="sec-head">
+      <p class="eyebrow">Plano de evolução</p>
+      <h2>Como evoluir mais rápido</h2>
+      <p class="lead">A faixa azul costuma vir entre 1,5 e 3 anos de treino regular, e o tempo varia muito entre academias. Este é um roteiro realista para o primeiro ano.</p>
+    </div>
+    <div class="road" id="road"></div>
+
+    <div class="habits" id="habits"></div>
+
+    <div class="focus">
+      <div>
+        <p class="eyebrow" style="color:inherit;opacity:.85">Método do foco</p>
+        <h3>Escolha 3 técnicas para este mês</h3>
+      </div>
+      <div class="focus-grid">
+        <label for="fFuga">1 fuga<select id="fFuga"></select></label>
+        <label for="fRasp">1 raspagem<select id="fRasp"></select></label>
+        <label for="fFin">1 finalização<select id="fFin"></select></label>
+      </div>
+      <p id="focusText"></p>
+    </div>
+  </section>
+
+  <!-- GLOSSÁRIO -->
+  <section id="glossario">
+    <div class="sec-head">
+      <p class="eyebrow">Vocabulário do tatame</p>
+      <h2>Glossário</h2>
+    </div>
+    <div class="gloss" id="gloss"></div>
+  </section>
+
+  <footer>
+    <p>Este guia complementa as aulas e não substitui o seu professor. Os detalhes das técnicas mudam de academia para academia. Quando houver diferença, siga o que é ensinado na sua. Se sentir dor articular persistente, procure um fisioterapeuta ou médico do esporte.</p>
+  </footer>
+</main>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* ---------- POSIÇÕES ---------- */
+const POS=[
+ {z:"top",n:"Pegada nas costas",p:"+4",meta:"A melhor posição do jiu-jitsu. Você controla o oponente e ele não consegue atacar você.",fazer:"Mantenha os dois ganchos (pés por dentro das coxas dele) e a pegada em cinto de segurança: um braço por cima do ombro, outro por baixo da axila, mãos juntas no peito dele. Ataque o estrangulamento pelas costas ou pela gola.",erro:"Cruzar os pés na frente da barriga dele. Ele trava seus pés com as pernas e você mesmo se machuca."},
+ {z:"top",n:"Montada",p:"+4",meta:"Sentado sobre o tronco dele, com os joelhos no chão. Ótima para atacar.",fazer:"Joelhos altos, perto das axilas dele. Peso nos quadris, mãos no chão para base quando ele fizer ponte. Ataque o estrangulamento cruzado ou o armlock.",erro:"Sentar reto na barriga com os pés soltos. A ponte (upa) dele joga você longe."},
+ {z:"top",n:"Joelho na barriga",p:"+2",meta:"Posição de transição, muito incômoda para quem está embaixo.",fazer:"Canela atravessada na barriga, pé de trás abrindo a base, mãos na gola e na calça. Use para passar à montada quando ele empurrar o joelho.",erro:"Colocar todo o peso no joelho sem base. Ele empurra e você cai para trás."},
+ {z:"top",n:"Cem quilos",p:"+3",meta:"Você passou a guarda e está de lado, peito com peito. É a posição de controle mais estável.",fazer:"Peito pesado no peito dele, quadril baixo, cotovelo bloqueando o quadril dele. Tire o espaço dos braços dele antes de pensar em finalizar.",erro:"Ficar com o quadril alto. Ele coloca o joelho entre vocês e recompõe a guarda."},
+ {z:"mid",n:"Dentro da guarda dele",p:"0",meta:"Você está por cima, entre as pernas dele. Posição neutra: seu trabalho é passar.",fazer:"Postura primeiro: coluna reta, cabeça alta, mãos no quadril ou nos bíceps dele. Depois abra a guarda e passe (toreando para começar).",erro:"Abaixar a cabeça e colocar as mãos no chão. Você entrega estrangulamento, triângulo e raspagem."},
+ {z:"mid",n:"Sua guarda fechada",p:"0",meta:"Você está embaixo com as pernas trancadas nas costas dele. É uma posição de ataque, não de descanso.",fazer:"Quebre a postura dele puxando com as pernas e a gola. Pegada gola e manga. Ataque: raspagem de tesoura, pêndulo, cruzado, armlock, triângulo, kimura.",erro:"Ficar parado e reto de costas no chão. Trabalhe de lado, com o quadril se mexendo."},
+ {z:"low",n:"Embaixo do cem quilos",p:"",meta:"Ruim, mas bem mais segura que montada ou costas. Objetivo: não piorar e recompor a guarda.",fazer:"Faça os frames: antebraço no pescoço dele, outra mão no quadril. Fique de lado (nunca de costas). Crie espaço com a fuga de quadril e coloque o joelho de volta entre vocês.",erro:"Empurrar com os braços esticados. Ele pega o armlock. E nunca dê as costas para fugir."},
+ {z:"low",n:"Embaixo da montada",p:"",meta:"Posição perigosa. Proteja o pescoço e os braços e saia.",fazer:"Cotovelos colados no corpo, mãos protegendo a gola. Saia com a upa (ponte) para o lado do braço e pé presos, ou com a fuga de cotovelo e joelho.",erro:"Esticar os braços para empurrar o peito dele. É o convite perfeito para o armlock."},
+ {z:"low",n:"Com as costas tomadas",p:"",meta:"A pior posição. Primeiro sobreviva, depois escape.",fazer:"Queixo no peito e duas mãos defendendo o pescoço. Deslize as costas para o lado do braço que está por baixo e leve os ombros ao chão.",erro:"Tentar tirar os ganchos das pernas antes de defender o pescoço."}
+];
+const zoneName={top:"Dominar · você por cima",mid:"Neutro · disputa",low:"Sobreviver · você por baixo"};
+const rungs=$("#rungs");let curPos=+store.get("bjj-pos",1);
+function renderRungs(){
+  rungs.innerHTML="";let last="";
+  POS.forEach((p,i)=>{
+    if(p.z!==last){const z=document.createElement("div");z.className="zone z-"+p.z;z.textContent=zoneName[p.z];rungs.appendChild(z);last=p.z}
+    const b=document.createElement("button");b.className="rung"+(i===curPos?" on":"");b.dataset.z=p.z;b.setAttribute("role","option");b.setAttribute("aria-selected",i===curPos);
+    b.innerHTML=`<span class="nm">${p.n}</span>${p.p?`<span class="pts">${p.p}</span>`:""}`;
+    b.onclick=()=>{curPos=i;store.set("bjj-pos",i);renderRungs();renderPos()};
+    rungs.appendChild(b);
+  });
+}
+function renderPos(){
+  const p=POS[curPos];const tagTxt={top:"Posição dominante",mid:"Posição neutra",low:"Posição inferior"}[p.z];
+  $("#posCard").innerHTML=`<span class="tag ${p.z}">${tagTxt}${p.p&&p.p!=="0"?` · vale ${p.p.replace("+","")} pts`:""}</span>
+  <h3>${p.n}</h3><p>${p.meta}</p>
+  <dl class="kv"><div><dt>O que fazer</dt><dd>${p.fazer}</dd></div></dl>
+  <div class="err"><b>Erro comum de faixa branca:</b> ${p.erro}</div>`;
+}
+renderRungs();renderPos();
+
+const PTS=[["Montada",4],["Pegada nas costas",4],["Passagem de guarda",3],["Queda",2],["Raspagem",2],["Joelho na barriga",2]];
+$("#bars").innerHTML=PTS.map(([n,v])=>`<div class="bar"><span>${n}</span><div class="track"><div class="fill" style="width:${v/4*100}%"></div></div><b>${v}</b></div>`).join("");
+
+/* ---------- TÉCNICAS ---------- */
+const CATS=[
+ {id:"base",n:"Movimentos base",t:[
+  {id:"shrimp",n:"Fuga de quadril",en:"Shrimp",lv:"Semana 1",s:["Deite de costas, joelhos dobrados, pés no chão.","Plante um pé e empurre o chão, levando o quadril para trás e para longe.","Vire de lado no fim do movimento, apoiado no ombro, com as mãos empurrando como se afastasse alguém.","Recolha as pernas e repita para o outro lado, avançando pelo tatame."],d:"Quem se move é o quadril, não a cabeça. É o movimento mais usado em todas as fugas."},
+  {id:"ponte",n:"Ponte (upa)",en:"Bridge",lv:"Semana 1",s:["De costas, pés plantados perto do bumbum.","Empurre com os pés e suba o quadril o mais alto possível.","Gire sobre um ombro, olhando para o lado oposto."],d:"A força vem das pernas e do quadril. É a base da fuga da montada."},
+  {id:"levantar",n:"Levantar técnico",en:"Technical stand-up",lv:"Semana 1",s:["Sentado, apoie uma mão atrás de você no chão.","Plante o pé do lado oposto; o outro braço protege o rosto.","Suba o quadril e passe a perna livre por baixo do corpo, para trás.","Fique em pé já em base, com as mãos à frente."],d:"Levante sempre protegido e de frente para o parceiro, nunca de costas."},
+  {id:"breakfall",n:"Queda para trás",en:"Break fall",lv:"Semana 2",s:["Agache, queixo colado no peito.","Role para trás arredondando as costas.","Bata os dois braços no chão a uns 45° do corpo, palmas para baixo, junto com a chegada das costas."],d:"A cabeça nunca toca o chão. Essencial antes de treinar quedas."}
+ ]},
+ {id:"fugas",n:"Fugas",t:[
+  {id:"upa",n:"Fuga da montada com upa",en:"Trap and roll",lv:"Mês 1",s:["Prenda um braço dele: pegue a manga ou abrace o cotovelo junto ao seu peito.","Com o pé do mesmo lado, prenda o pé dele por fora.","Faça a ponte alta na diagonal, por cima do seu ombro do lado preso.","Role junto e caia dentro da guarda dele, já com postura."],d:"Braço e pé presos do mesmo lado. Sem isso, ele coloca a mão no chão e não cai."},
+  {id:"cotjoelho",n:"Fuga da montada cotovelo-joelho",en:"Elbow escape",lv:"Mês 1",s:["Vire de lado e coloque o cotovelo por dentro do joelho dele.","Faça a fuga de quadril e deslize o seu joelho por baixo da perna dele.","Prenda a perna dele entre as suas (meia-guarda).","Repita do outro lado para recompor a guarda fechada."],d:"Use quando ele se defende da upa. Cotovelo e joelho trabalham juntos para fechar o espaço."},
+  {id:"fuga100",n:"Fuga do cem quilos",en:"Side control escape",lv:"Mês 1",s:["Monte os frames: antebraço no pescoço/ombro dele, a outra mão no quadril.","Faça uma pequena ponte para criar espaço.","Fuga de quadril para longe dele, mantendo os frames firmes.","Coloque o joelho de dentro entre vocês e recomponha a guarda."],d:"Os braços fazem uma estrutura (frames), não empurram. Quem cria o espaço é o quadril."}
+ ]},
+ {id:"guarda",n:"Guarda e raspagens",t:[
+  {id:"quebrar",n:"Quebrar a postura",en:"Posture break",lv:"Mês 1",s:["Na guarda fechada, pegue as duas golas ou gola e manga.","Puxe com os joelhos em direção ao peito ao mesmo tempo que puxa com os braços.","Mantenha a cabeça dele baixa, perto do seu peito."],d:"Sem quebrar a postura, nenhum ataque da guarda funciona."},
+  {id:"tesoura",n:"Raspagem de tesoura",en:"Scissor sweep",lv:"Mês 2",s:["Pegada: gola do lado cruzado e manga do mesmo lado.","Abra a guarda e faça a fuga de quadril para ficar de lado.","Atravesse a canela de cima na barriga dele; a perna de baixo fica no chão, atrás do joelho dele.","Puxe gola e manga para você e para cima.","Feche as pernas como tesoura: canela empurra, perna de baixo varre.","Role por cima e termine na montada."],d:"Traga o peso dele para cima da canela antes de cortar. Sem esse puxão, a perna não varre."},
+  {id:"pendulo",n:"Raspagem de pêndulo",en:"Flower sweep",lv:"Mês 2",s:["Da guarda fechada, pegue a manga de um lado.","Com o outro braço, abrace a perna do mesmo lado da manga, por baixo.","Abra a guarda e gire o corpo em ângulo.","Balance a perna livre como pêndulo, alto, enquanto a outra empurra.","Puxe a manga e role para a montada."],d:"O balanço da perna gera a força. Um erro comum é tentar fazer força só com os braços."}
+ ]},
+ {id:"fin",n:"Finalizações",t:[
+  {id:"cruzado",n:"Estrangulamento cruzado",en:"Cross collar choke",lv:"Mês 1",s:["Primeira mão bem funda na gola, com os dedos por dentro e o polegar por fora.","Segunda mão cruzada na gola do outro lado, por cima da primeira.","Da guarda, puxe-o para baixo com as pernas.","Abra os cotovelos para fora e puxe como quem rema, trazendo-o ao seu peito."],d:"A primeira mão tem que entrar o mais fundo possível, quase atrás do pescoço. Funciona da guarda e da montada."},
+  {id:"armlock",n:"Armlock da guarda",en:"Armbar",lv:"Mês 2",s:["Controle um braço dele: segure a manga e prenda contra o seu peito.","Coloque o pé no quadril dele e gire o corpo ficando perpendicular.","Passe a perna por cima do rosto dele.","Aperte os joelhos, polegar dele apontando para cima, e suba o quadril devagar."],d:"Suba o quadril devagar no treino. A articulação do cotovelo não dá aviso."},
+  {id:"kimura",n:"Kimura",en:"Kimura",lv:"Mês 2",s:["Quando ele apoiar a mão no chão, pegue o punho dele com a mão do mesmo lado.","Sente e passe o outro braço por cima do ombro dele.","Segure o seu próprio punho, formando um número 4.","Leve o quadril para o lado e gire o braço dele em direção às costas, devagar."],d:"Gire devagar. O ombro tem uma margem pequena e lesão de ombro dura meses."},
+  {id:"triangulo",n:"Triângulo",en:"Triangle choke",lv:"Mês 3",s:["Deixe um braço dele dentro e outro fora das suas pernas.","Passe a perna do lado de fora por cima do ombro, atrás do pescoço.","Trave o pé na dobra do joelho da outra perna.","Gire para ficar em ângulo, puxe a cabeça dele e aperte os joelhos."],d:"O ângulo faz o triângulo funcionar. De frente para ele, ele se defende com facilidade."}
+ ]},
+ {id:"passagem",n:"Passagem",t:[
+  {id:"postura",n:"Postura na guarda fechada",en:"Posture",lv:"Mês 1",s:["Joelhos abertos, quadril baixo.","Coluna reta e cabeça alta, como se olhasse para a parede.","Mãos no quadril ou nos bíceps dele, cotovelos para dentro."],d:"Postura boa primeiro. Tentar passar sem postura é entregar ataques."},
+  {id:"abrir",n:"Abrir a guarda fechada",en:"Guard opening",lv:"Mês 2",s:["Com postura, segure firme o cinto ou as golas na altura da barriga dele.","Fique em pé com um pé de cada vez, mantendo a mão no quadril dele.","Coloque o joelho no cóccix ou afaste os quadris até os pés dele destravarem."],d:"Em pé é mais fácil para iniciante, porque a gravidade ajuda a abrir as pernas."},
+  {id:"toreando",n:"Passagem toreando",en:"Toreando pass",lv:"Mês 3",s:["Em pé, segure a calça dele na altura dos joelhos.","Empurre as pernas dele para um lado com firmeza.","Ande rápido em volta pelo outro lado, contornando os pés.","Baixe o peito sobre ele e estabilize no cem quilos."],d:"Mova os pés dele e o seu corpo em sentidos opostos, ao mesmo tempo."}
+ ]},
+ {id:"quedas",n:"Quedas",t:[
+  {id:"double",n:"Double leg",en:"Double leg takedown",lv:"Mês 3+",s:["Baixe o nível dobrando os joelhos, sem curvar as costas.","Dê um passo profundo entre as pernas dele.","O joelho de trás vai ao chão; abrace atrás das coxas dele.","Cabeça do lado de fora, peito colado, empurre e gire para derrubar."],d:"A cabeça fica fora do corpo dele, nunca embaixo do queixo. É mais seguro para o pescoço."},
+  {id:"osoto",n:"O-soto-gari",en:"Osoto gari",lv:"Mês 3+",s:["Pegada gola e manga.","Puxe e empurre o peso dele para trás, para o calcanhar do lado atacado.","Dê um passo à frente ao lado dele, peito com peito.","Varra a perna de apoio dele de trás para frente, com a sua perna estendida."],d:"O desequilíbrio vem antes da varrida. Sem isso, é só um chute na perna."}
+ ]}
+];
+const ALL=CATS.flatMap(c=>c.t.map(t=>({...t,cat:c.id})));
+let done=new Set(store.get("bjj-done",[]));
+let curCat=store.get("bjj-cat","base");if(!CATS.find(c=>c.id===curCat))curCat="base";
+const check='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>';
+const caret='<svg class="caret" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>';
+function renderTabs(){
+  $("#tabs").innerHTML="";
+  CATS.forEach(c=>{const b=document.createElement("button");b.className="tab"+(c.id===curCat?" on":"");b.setAttribute("role","tab");b.setAttribute("aria-selected",c.id===curCat);
+    const n=c.t.filter(t=>done.has(t.id)).length;
+    b.innerHTML=`${c.n}<span class="ct">${n}/${c.t.length}</span>`;b.onclick=()=>{curCat=c.id;store.set("bjj-cat",c.id);renderTabs();renderTech()};$("#tabs").appendChild(b)});
+}
+function renderTech(){
+  const c=CATS.find(c=>c.id===curCat);const L=$("#techList");L.innerHTML="";
+  c.t.forEach(t=>{
+    const d=document.createElement("details");d.className="tech"+(done.has(t.id)?" done":"");
+    d.innerHTML=`<summary><span class="chk">${check}</span><span class="t-title"><b>${t.n}</b><small>${t.en}</small></span><span class="lvl">${t.lv}</span>${caret}</summary>
+    <div class="t-body"><ol class="steps">${t.s.map(x=>`<li><span>${x}</span></li>`).join("")}</ol>
+    <div class="tip"><b>Detalhe-chave:</b> ${t.d}</div>
+    <button class="mark-btn" type="button">${done.has(t.id)?"Treinada ✓":"Marcar como treinada"}</button></div>`;
+    d.querySelector(".mark-btn").onclick=()=>{done.has(t.id)?done.delete(t.id):done.add(t.id);store.set("bjj-done",[...done]);const o=d.open;renderTabs();renderTech();L.children[c.t.indexOf(t)].open=o;updateBelt();renderFocusOpts()};
+    L.appendChild(d);
+  });
+}
+function updateBelt(){
+  const n=done.size,tot=ALL.length;$("#doneCount").textContent=n;$("#totalCount").textContent=tot;
+  const g=Math.floor(n/tot*4+1e-9);document.querySelectorAll(".grau").forEach((el,i)=>el.classList.toggle("on",i<g));
+}
+renderTabs();renderTech();updateBelt();
+
+/* ---------- FLEXIBILIDADE ---------- */
+const ROUT=[
+ {id:"pre",n:"Antes do treino",sub:"Dinâmica · acorda as articulações",ex:[
+  ["Gato e vaca",60,"Em quatro apoios, arredonde e arqueie a coluna devagar, seguindo a respiração."],
+  ["Círculos de quadril em 4 apoios",60,"Leve um joelho para fora em círculo, como um cachorro no poste. 30 s cada lado."],
+  ["Transições 90/90",60,"Sentado, pernas em 90°, gire os joelhos de um lado para o outro sem usar as mãos."],
+  ["Pontes",45,"Suba e desça o quadril com controle, girando para um ombro de cada vez."],
+  ["Fugas de quadril",60,"Atravesse o tatame fazendo shrimp alternado."],
+  ["Pescoço em círculos suaves",30,"Sem peso, amplitude pequena. Aquece para o trabalho de postura."]]},
+ {id:"pos",n:"Depois do treino ou dia livre",sub:"Estática · ganha amplitude",ex:[
+  ["Borboleta",60,"Solas dos pés juntas, coluna longa, incline o tronco à frente sem forçar os joelhos."],
+  ["Pombo · lado direito",60,"Perna da frente dobrada, perna de trás esticada. Abre o quadril para a guarda."],
+  ["Pombo · lado esquerdo",60,""],
+  ["Posterior sentado",60,"Pernas estendidas, leve o peito na direção dos joelhos com a coluna reta."],
+  ["Sapo",60,"Em quatro apoios, afaste os joelhos e leve o quadril para trás. Ajuda na guarda aberta."],
+  ["90/90 com inclinação · cada lado",90,"Incline o tronco sobre a perna da frente. 45 s cada lado."],
+  ["Esfinge",45,"Deitado de barriga, apoiado nos antebraços. Alivia a lombar depois do rola."],
+  ["Postura da criança",60,"Joelhos afastados, braços à frente, respire fundo e solte a lombar."]]}
+];
+const fmt=s=>`${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`;
+const tot=r=>r.ex.reduce((a,e)=>a+e[1],0);
+$("#routines").innerHTML=ROUT.map(r=>`<div class="routine" id="r-${r.id}">
+  <header><h3>${r.n}</h3><span class="dur">${Math.round(tot(r)/60)} min</span></header>
+  <p class="lead" style="font-size:.9rem">${r.sub}</p>
+  <div class="exs">${r.ex.map((e,i)=>`<div class="ex" data-i="${i}"><b>${e[0]}</b><span>${fmt(e[1])}</span>${e[2]?`<small>${e[2]}</small>`:""}</div>`).join("")}</div>
+  <div class="timer" hidden><p class="lbl" style="color:inherit;opacity:.75" data-role="name"></p><div class="clock" data-role="clock">0:00</div><div class="prog"><i></i></div>
+    <div class="row"><button type="button" data-a="pause">Pausar</button><button type="button" data-a="skip">Próximo</button><button type="button" data-a="stop">Encerrar</button></div></div>
+  <button class="play" type="button" data-a="start"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg>Iniciar rotina com cronômetro</button>
+</div>`).join("");
+let T=null;
+function stopT(){if(!T)return;clearInterval(T.iv);const el=T.el;el.querySelector(".timer").hidden=true;el.querySelector(".play").hidden=false;el.querySelectorAll(".ex").forEach(x=>x.classList.remove("now"));T=null}
+function beep(){try{const A=window.AudioContext||window.webkitAudioContext;if(!A)return;T&&(T.ac=T.ac||new A());const ac=T.ac,o=ac.createOscillator(),g=ac.createGain();o.frequency.value=880;g.gain.value=.08;o.connect(g).connect(ac.destination);o.start();o.stop(ac.currentTime+.18)}catch(e){}}
+function showStep(){
+  const r=T.r,e=r.ex[T.i];T.el.querySelectorAll(".ex").forEach((x,i)=>x.classList.toggle("now",i===T.i));
+  T.el.querySelector('[data-role="name"]').textContent=`${T.i+1}/${r.ex.length} · ${e[0]}`;
+  T.el.querySelector('[data-role="clock"]').textContent=fmt(T.left);
+  T.el.querySelector(".prog i").style.width=((e[1]-T.left)/e[1]*100)+"%";
+}
+function next(){T.i++;if(T.i>=T.r.ex.length){const el=T.el;beep();stopT();el.querySelector(".play").lastChild.textContent="Rotina concluída. Fazer de novo";return}T.left=T.r.ex[T.i][1];beep();showStep()}
+document.querySelectorAll(".routine").forEach((el,ri)=>{
+  el.addEventListener("click",ev=>{
+    const a=ev.target.closest("[data-a]")?.dataset.a;if(!a)return;
+    if(a==="start"){stopT();T={r:ROUT[ri],el,i:0,left:ROUT[ri].ex[0][1],paused:false};
+      el.querySelector(".timer").hidden=false;el.querySelector(".play").hidden=true;showStep();beep();
+      T.iv=setInterval(()=>{if(T.paused)return;T.left--;if(T.left<=0)next();else showStep()},1000)}
+    if(!T||T.el!==el)return;
+    if(a==="pause"){T.paused=!T.paused;ev.target.textContent=T.paused?"Continuar":"Pausar"}
+    if(a==="skip")next();
+    if(a==="stop")stopT();
+  });
+});
+
+const WEEK=[["SEG",[["t","Treino"],["m","Mobilidade 10′"]]],["TER",[["f","Força 30′"],["m","Mobilidade 15′"]]],["QUA",[["t","Treino"],["m","Mobilidade 10′"]]],["QUI",[["m","Mobilidade 15′"]]],["SEX",[["t","Treino"],["m","Mobilidade 10′"]]],["SÁB",[["f","Força leve ou drill"]]],["DOM",[["r","Descanso"]]]];
+$("#week").innerHTML=WEEK.map(([d,b])=>`<div class="day"><span class="d">${d}</span>${b.map(([c,t])=>`<span class="blk ${c}">${t}</span>`).join("")}</div>`).join("");
+
+/* ---------- EVOLUIR ---------- */
+const ROAD=[
+ ["Meses 1–2","Sobreviver",["Etiqueta e rotina da academia","Fuga de quadril, ponte, levantar técnico","Fugas da montada e do cem quilos","Respirar embaixo da pressão"],"Ir a 3 aulas por semana sem se machucar."],
+ ["Meses 3–4","Guarda fechada",["Quebrar postura e controlar","1 raspagem (tesoura ou pêndulo)","1 finalização da guarda (cruzado ou armlock)","Postura por cima na guarda do parceiro"],"Conseguir tentar pelo menos um ataque em cada rola."],
+ ["Meses 5–6","Passar e manter",["Abrir a guarda fechada em pé","Passagem toreando","Manter o cem quilos com peso","Transição cem quilos → montada"],"Primeiro grau na faixa costuma chegar por aqui (varia por academia)."],
+ ["Meses 7–9","Conectar",["Sequências: raspagem → montada → finalização","Ataques em combinação (armlock ↔ triângulo)","Introdução à guarda aberta","Pegada nas costas e ganchos"],"Pensar no rola como uma cadeia de posições, não golpes soltos."],
+ ["Meses 10–12","Seu jogo",["Escolher uma guarda preferida","Uma passagem de confiança","Uma queda para começar em pé","Competição interna, se tiver vontade"],"Ter um plano A para cada posição da hierarquia."]
+];
+$("#road").innerHTML=ROAD.map(([w,t,l,g])=>`<div class="stage"><span class="when">${w}</span><h3>${t}</h3><ul>${l.map(x=>`<li>${x}</li>`).join("")}</ul><p class="goal"><b>Meta:</b> ${g}</p></div>`).join("");
+
+const HAB=[
+ ["Constância acima de intensidade","Três treinos por semana durante um ano valem mais que seis por semana por dois meses e depois parar."],
+ ["Caderno de treino","Depois de cada aula, anote a técnica, dois detalhes-chave e uma dúvida para perguntar no próximo treino."],
+ ["Foco em poucas técnicas","Escolha 1 fuga, 1 raspagem e 1 finalização por mês e tente em todos os rolas, mesmo quando der errado."],
+ ["Pergunte aos graduados","Depois do rola, pergunte o que você fez de errado. Faixas mais altas costumam gostar de ajudar."],
+ ["Drill fora da aula","Chegue 10 minutos antes ou fique depois para repetir a técnica do dia 20 a 30 vezes com um parceiro."],
+ ["Estudo com propósito","Vídeos de fundamentos ligados ao que foi ensinado na semana. Assistir técnica solta só distrai."],
+ ["Recuperação","Durma 7 a 9 horas, beba água e respeite o descanso. O corpo se adapta fora do tatame."],
+ ["Aceite ser amassado","Nos primeiros meses o objetivo é perder o pânico nas posições ruins. Isso já é evolução."]
+];
+$("#habits").innerHTML=HAB.map((h,i)=>`<div class="habit"><span class="n">${i+1}</span><b>${h[0]}</b><p>${h[1]}</p></div>`).join("");
+
+const FOC={fFuga:["upa","cotjoelho","fuga100"],fRasp:["tesoura","pendulo"],fFin:["cruzado","armlock","kimura","triangulo"]};
+let foc=store.get("bjj-focus",{fFuga:"upa",fRasp:"tesoura",fFin:"cruzado"});
+function renderFocusOpts(){
+  Object.entries(FOC).forEach(([sel,ids])=>{const s=document.getElementById(sel);s.innerHTML=ids.map(id=>{const t=ALL.find(x=>x.id===id);return `<option value="${id}" ${foc[sel]===id?"selected":""}>${t.n}${done.has(id)?" ✓":""}</option>`}).join("");s.onchange=()=>{foc[sel]=s.value;store.set("bjj-focus",foc);focusText()}});
+  focusText();
+}
+function focusText(){const n=k=>ALL.find(x=>x.id===foc[k]).n.toLowerCase();$("#focusText").textContent=`Neste mês, em todo rola: quando estiver por baixo, tente a ${n("fFuga")}. Na guarda, busque a ${n("fRasp")}. Quando tiver a chance, ataque com ${n("fFin")}. Anote no caderno quantas vezes tentou.`}
+renderFocusOpts();
+
+/* ---------- GLOSSÁRIO ---------- */
+const GL=[["Oss","Saudação e sinal de respeito, usado ao entrar no tatame e cumprimentar."],["Rola","Treino livre, a luta de treino no fim da aula."],["Bater","Dar dois tapas para desistir de uma finalização. Encerra na hora."],["Base","Equilíbrio e estabilidade para não ser derrubado ou raspado."],["Pegada","Onde e como você segura o kimono ou o corpo do parceiro."],["Guarda","Você por baixo, usando as pernas para controlar o oponente."],["Raspagem","Inverter a posição, saindo de baixo da guarda para cima."],["Passagem","Passar pelas pernas do oponente e chegar ao lado dele."],["Cem quilos","Controle lateral, peito com peito, após passar a guarda."],["Montada","Sentado sobre o tronco do oponente."],["Frame","Estrutura com os braços para manter distância sem empurrar."],["Gancho","Pé enganchado por dentro da perna do oponente, nas costas ou na guarda."],["Grau","Listra na tarja da faixa. São até quatro antes da próxima faixa."],["Drill","Repetição da técnica com o parceiro colaborando."]];
+$("#gloss").innerHTML=GL.map(([a,b])=>`<div><b>${a}</b><span>${b}</span></div>`).join("");
+
+/* ---------- NAV ---------- */
+const links=[...document.querySelectorAll("nav.rail a")];
+const secs=links.map(a=>document.querySelector(a.getAttribute("href")));
+function onScroll(){let k=-1;secs.forEach((s,i)=>{if(s.getBoundingClientRect().top<120)k=i});links.forEach((a,i)=>a.classList.toggle("on",i===k))}
+addEventListener("scroll",onScroll,{passive:true});onScroll();
+})();
+</script>
+
+</body>
+</html>
